@@ -14,30 +14,30 @@ export function NowNextHeader() {
   if (!current && !next) return null
 
   return (
-    <div className="px-4 py-2 border-b border-orbit-border">
+    <div className="px-4 py-2.5 border-b border-orbit-border/60">
       <div className="max-w-lg mx-auto flex items-center justify-between gap-3 text-sm">
         {current ? (
           <div className="min-w-0">
-            <p className="text-[10px] text-zinc-600 uppercase tracking-wide">Now</p>
-            <p className="font-medium truncate">{current.name}</p>
+            <p className="orbit-section-label">Now</p>
+            <p className="font-semibold truncate tracking-tight">{current.name}</p>
           </div>
         ) : (
           <div className="min-w-0">
-            <p className="text-[10px] text-zinc-600 uppercase tracking-wide">Between periods</p>
-            <p className="font-medium text-zinc-400">Free block</p>
+            <p className="orbit-section-label">Between periods</p>
+            <p className="font-semibold text-zinc-400">Free block</p>
           </div>
         )}
         {current && (
-          <div className="shrink-0 text-center px-3 py-1 rounded-lg bg-orbit-surface-2 border border-orbit-border">
-            <p className="text-[10px] text-zinc-500">ends in</p>
-            <p className="font-semibold text-accent text-sm">{formatCountdown(minutesLeft)}</p>
+          <div className="shrink-0 text-center px-3 py-1.5 rounded-xl bg-orbit-accent/10 border border-orbit-accent/20">
+            <p className="text-[10px] text-zinc-500 font-medium">ends in</p>
+            <p className="font-bold text-accent text-sm tabular-nums">{formatCountdown(minutesLeft)}</p>
           </div>
         )}
         {next && (
           <div className="min-w-0 text-right">
-            <p className="text-[10px] text-zinc-600 uppercase tracking-wide">Next</p>
-            <p className="font-medium truncate">{next.name}</p>
-            <p className="text-[10px] text-zinc-500">@ {next.start}</p>
+            <p className="orbit-section-label">Next</p>
+            <p className="font-semibold truncate tracking-tight">{next.name}</p>
+            <p className="text-[10px] text-zinc-500 tabular-nums">@ {next.start}</p>
           </div>
         )}
       </div>

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useApp } from '../../context/AppContext'
+import { Button } from '../ui/Button'
 
 function SnapGhostIcon() {
   return (
@@ -35,23 +36,34 @@ export function WelcomeStep({ onEmailContinue }: WelcomeStepProps) {
   }
 
   return (
-    <div className="min-h-full flex flex-col items-center justify-center p-6 animate-slide-up">
-      <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-orbit-accent mb-4">
-          <span className="text-2xl font-bold text-orbit-bg">O</span>
+    <div className="min-h-full flex flex-col items-center justify-center p-6 animate-orbit-slide-up safe-area-top safe-area-bottom">
+      <div className="orbit-progress-dots mb-10">
+        <div className="orbit-progress-dot" data-active="true" />
+        <div className="orbit-progress-dot" />
+        <div className="orbit-progress-dot" />
+        <div className="orbit-progress-dot" />
+      </div>
+
+      <div className="text-center mb-12">
+        <div
+          className="inline-flex items-center justify-center w-20 h-20 rounded-3xl mb-5 shadow-lg"
+          style={{ background: 'linear-gradient(135deg, var(--color-orbit-accent), #f97316)' }}
+        >
+          <span className="text-3xl font-bold text-orbit-bg">O</span>
         </div>
         <h1 className="text-3xl font-bold tracking-tight">Welcome to Orbit</h1>
-        <p className="text-zinc-500 mt-2 text-sm max-w-xs mx-auto">
+        <p className="text-zinc-500 mt-3 text-sm max-w-xs mx-auto leading-relaxed">
           The student calendar built for you and your crew
         </p>
       </div>
 
       <div className="w-full max-w-sm space-y-3">
-        <button
+        <Button
+          variant="snap"
+          fullWidth
+          size="lg"
           onClick={handleSnapchat}
           disabled={loading}
-          className="w-full py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2.5 transition-opacity disabled:opacity-70"
-          style={{ background: '#FFFC00', color: '#000' }}
         >
           {loading ? (
             <>
@@ -64,23 +76,25 @@ export function WelcomeStep({ onEmailContinue }: WelcomeStepProps) {
               Continue with Snapchat
             </>
           )}
-        </button>
+        </Button>
 
-        <button
+        <Button
+          variant="secondary"
+          fullWidth
+          size="lg"
           onClick={onEmailContinue}
           disabled={loading}
-          className="w-full py-3.5 rounded-xl font-medium btn-secondary"
         >
           Continue with email
-        </button>
+        </Button>
 
-        <p className="text-center text-xs text-zinc-600 pt-2">
+        <p className="text-center text-xs text-zinc-600 pt-3 leading-relaxed">
           By continuing, you agree to Orbit's Terms & Privacy Policy
         </p>
       </div>
 
       {loading && (
-        <p className="text-sm text-zinc-500 mt-6 animate-pulse">
+        <p className="text-sm text-zinc-500 mt-8 animate-pulse">
           Importing your Snap profile & friends...
         </p>
       )}
@@ -90,7 +104,7 @@ export function WelcomeStep({ onEmailContinue }: WelcomeStepProps) {
 
 export function SnapchatBadge() {
   return (
-    <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full font-medium" style={{ background: '#FFFC0020', color: '#FFFC00' }}>
+    <span className="inline-flex items-center gap-1 text-[10px] px-2.5 py-1 rounded-full font-semibold" style={{ background: '#FFFC0020', color: '#FFFC00' }}>
       <SnapGhostIcon />
       Connected
     </span>

@@ -3,6 +3,9 @@ import { Search, Check, Clock } from 'lucide-react'
 import { useApp } from '../../context/AppContext'
 import { searchSchools, getSchoolById } from '../../data/schools'
 import type { ScheduleRotation } from '../../types'
+import { Button } from '../ui/Button'
+import { Card } from '../ui/Card'
+import { OnboardingShell } from './OnboardingProgress'
 
 export function SchoolPicker() {
   const { dispatch } = useApp()
@@ -34,8 +37,8 @@ export function SchoolPicker() {
 
   if (showRotation && school) {
     return (
-      <div className="min-h-full flex flex-col p-6 animate-slide-up">
-        <h2 className="text-2xl font-bold mb-1">Today's schedule type</h2>
+      <OnboardingShell step={2} total={4}>
+        <h2 className="text-2xl font-bold tracking-tight mb-1">Today's schedule type</h2>
         <p className="text-zinc-500 mb-2">{school.name}</p>
         <p className="text-sm text-zinc-400 mb-6">
           {school.userCount ?? 47} classmates at {school.name.split(' ')[0]} use Orbit (demo)
@@ -46,16 +49,16 @@ export function SchoolPicker() {
             <button
               key={v.id}
               onClick={() => setRotation(v.id)}
-              className={`w-full text-left p-4 rounded-xl transition-all border ${
+              className={`w-full text-left p-4 rounded-2xl transition-all border ${
                 rotation === v.id
-                  ? 'border-orbit-accent bg-orbit-accent/10'
-                  : 'border-orbit-border bg-orbit-surface-2 hover:bg-orbit-surface'
+                  ? 'border-orbit-accent bg-orbit-accent/10 ring-1 ring-orbit-accent/20'
+                  : 'border-orbit-border bg-orbit-surface-2 hover:bg-orbit-surface hover:border-orbit-accent/20'
               }`}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium">{v.label}</p>
-                  <p className="text-xs text-zinc-500">{v.periods.length} periods</p>
+                  <p className="font-semibold">{v.label}</p>
+                  <p className="text-xs text-zinc-500 mt-0.5">{v.periods.length} periods</p>
                 </div>
                 {rotation === v.id && <Check size={20} className="text-accent" />}
               </div>
@@ -63,68 +66,61 @@ export function SchoolPicker() {
           ))}
         </div>
 
-        <button
-          onClick={handleFinalConfirm}
-          className="mt-6 w-full py-3.5 rounded-xl font-semibold btn-primary"
-        >
+        <Button fullWidth size="lg" onClick={handleFinalConfirm} className="mt-6">
           Continue
-        </button>
-      </div>
+        </Button>
+      </OnboardingShell>
     )
   }
 
   if (showPreview && school) {
     const activePeriods = variants.find((v) => v.id === 'regular')?.periods ?? school.periods
     return (
-      <div className="min-h-full flex flex-col p-6 animate-slide-up">
-        <h2 className="text-2xl font-bold mb-1">Schedule preview</h2>
+      <OnboardingShell step={2} total={4}>
+        <h2 className="text-2xl font-bold tracking-tight mb-1">Schedule preview</h2>
         <p className="text-zinc-500 mb-6">{school.name} · {school.city}, {school.state}</p>
 
         <div className="flex-1 space-y-2 overflow-y-auto">
           {activePeriods.map((p) => (
-            <div
-              key={p.name}
-              className="flex items-center justify-between p-3 rounded-xl card"
-            >
-              <span className="font-medium text-sm">{p.name}</span>
-              <span className="text-sm text-zinc-500 flex items-center gap-1">
-                <Clock size={14} /> {p.start} – {p.end}
-              </span>
-            </div>
+            <Card key={p.name} padding="sm" className="!rounded-xl">
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-sm">{p.name}</span>
+                <span className="text-sm text-zinc-500 flex items-center gap-1 tabular-nums">
+                  <Clock size={14} /> {p.start} – {p.end}
+                </span>
+              </div>
+            </Card>
           ))}
         </div>
 
         <div className="mt-6 space-y-2">
-          <button
-            onClick={handleConfirmSchedule}
-            className="w-full py-3.5 rounded-xl font-semibold btn-primary"
-          >
+          <Button fullWidth size="lg" onClick={handleConfirmSchedule}>
             Confirm schedule
-          </button>
+          </Button>
           <button
             onClick={() => setShowPreview(false)}
-            className="w-full py-2 text-sm text-zinc-500 hover:text-zinc-300"
+            className="w-full py-2 text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
           >
             Pick a different school
           </button>
         </div>
-      </div>
+      </OnboardingShell>
     )
   }
 
   return (
-    <div className="min-h-full flex flex-col p-6 animate-slide-up">
-      <h2 className="text-2xl font-bold mb-1">Find your school</h2>
+    <OnboardingShell step={1} total={4}>
+      <h2 className="text-2xl font-bold tracking-tight mb-1">Find your school</h2>
       <p className="text-zinc-500 mb-6">We'll auto-fill your bell schedule</p>
 
       <div className="relative mb-4">
-        <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+        <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500" />
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search schools..."
-          className="w-full pl-10 pr-4 py-3 rounded-xl bg-orbit-surface-2 border border-orbit-border focus:border-orbit-accent focus:outline-none"
+          className="w-full pl-10 pr-4 py-3.5 rounded-2xl bg-orbit-surface-2 border border-orbit-border focus:border-orbit-accent focus:outline-none focus:ring-2 focus:ring-orbit-accent/20 transition-all"
         />
       </div>
 
@@ -133,18 +129,18 @@ export function SchoolPicker() {
           <button
             key={s.id}
             onClick={() => setSelected(s.id)}
-            className={`w-full text-left p-4 rounded-xl transition-all border ${
+            className={`w-full text-left p-4 rounded-2xl transition-all border ${
               selected === s.id
-                ? 'border-orbit-accent bg-orbit-accent/10'
-                : 'border-orbit-border bg-orbit-surface-2 hover:bg-orbit-surface'
+                ? 'border-orbit-accent bg-orbit-accent/10 ring-1 ring-orbit-accent/20'
+                : 'border-orbit-border bg-orbit-surface-2 hover:bg-orbit-surface hover:border-orbit-accent/20'
             }`}
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-medium">{s.name}</p>
+                <p className="font-semibold">{s.name}</p>
                 <p className="text-sm text-zinc-500">{s.city}, {s.state}</p>
                 {s.userCount && (
-                  <p className="text-xs text-accent mt-0.5">{s.userCount} students on Orbit</p>
+                  <p className="text-xs text-accent mt-1 font-medium">{s.userCount} students on Orbit</p>
                 )}
               </div>
               {selected === s.id && <Check size={20} className="text-accent" />}
@@ -153,13 +149,15 @@ export function SchoolPicker() {
         ))}
       </div>
 
-      <button
+      <Button
+        fullWidth
+        size="lg"
         onClick={handlePreview}
         disabled={!selected}
-        className="mt-4 w-full py-3.5 rounded-xl font-semibold btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
+        className="mt-4"
       >
         Continue
-      </button>
-    </div>
+      </Button>
+    </OnboardingShell>
   )
 }

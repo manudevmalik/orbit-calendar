@@ -19,40 +19,37 @@ export function CalendarHeader({ selectedDate, view, onDateChange, onViewChange 
   const date = new Date(selectedDate + 'T12:00:00')
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       <div className="flex items-center justify-between">
         <button
           onClick={() => onDateChange(format(subDays(date, view === 'week' ? 7 : 1), 'yyyy-MM-dd'))}
-          className="p-2 rounded-xl hover:bg-white/5 transition-colors"
+          className="p-2.5 rounded-xl hover:bg-orbit-surface-2 transition-colors border border-transparent hover:border-orbit-border"
           aria-label="Previous"
         >
           <ChevronLeft size={20} />
         </button>
         <div className="text-center">
-          <h2 className="font-bold text-lg">
+          <h2 className="font-bold text-lg tracking-tight">
             {view === 'day' ? format(date, 'EEEE') : view === 'week' ? 'This Week' : 'Agenda'}
           </h2>
-          <p className="text-sm text-zinc-400">{format(date, 'MMMM d, yyyy')}</p>
+          <p className="text-sm text-zinc-400 tabular-nums">{format(date, 'MMMM d, yyyy')}</p>
         </div>
         <button
           onClick={() => onDateChange(format(addDays(date, view === 'week' ? 7 : 1), 'yyyy-MM-dd'))}
-          className="p-2 rounded-xl hover:bg-white/5 transition-colors"
+          className="p-2.5 rounded-xl hover:bg-orbit-surface-2 transition-colors border border-transparent hover:border-orbit-border"
           aria-label="Next"
         >
           <ChevronRight size={20} />
         </button>
       </div>
 
-      <div className="flex gap-1 p-1 rounded-xl bg-orbit-surface-2">
+      <div className="orbit-segmented">
         {VIEWS.map((v) => (
           <button
             key={v.id}
             onClick={() => onViewChange(v.id)}
-            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
-              view === v.id
-                ? 'bg-orbit-accent text-orbit-bg'
-                : 'text-zinc-400 hover:text-white'
-            }`}
+            className="orbit-segmented-item"
+            data-active={view === v.id ? 'true' : undefined}
           >
             {v.label}
           </button>
