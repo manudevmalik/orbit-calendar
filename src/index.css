@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --color-orbit-accent: #e8b923;
+  --color-orbit-accent-dim: #b8921c;
+  --color-orbit-bg: #0a0a0a;
+  --color-orbit-surface: #141414;
+  --color-orbit-surface-2: #1c1c1c;
+  --color-orbit-border: #2a2a2a;
+  /* legacy aliases for gradual migration */
+  --color-orbit-purple: #e8b923;
+  --color-orbit-pink: #e8b923;
+  --color-orbit-cyan: #6b7280;
+  --color-orbit-lime: #34d399;
+  --color-orbit-orange: #e8b923;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-orbit-bg);
+  color: var(--color-orbit-text, #fafafa);
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.01em;
+}
+
+[data-color-mode="light"] .text-zinc-500 {
+  color: #737373;
+}
+
+[data-color-mode="light"] .text-zinc-400 {
+  color: #a3a3a3;
+}
+
+[data-color-mode="light"] .text-zinc-600 {
+  color: #525252;
+}
+
+[data-color-mode="light"] .text-zinc-300 {
+  color: #404040;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  border-radius: 999px;
+}
+
+.app-header {
+  background: var(--color-orbit-bg);
+  border-bottom: 1px solid var(--color-orbit-border);
+}
+
+.card {
+  background: var(--color-orbit-surface-2);
+  border: 1px solid var(--color-orbit-border);
+  border-radius: 12px;
+}
+
+.btn-primary {
+  background: var(--color-orbit-accent);
+  color: #0a0a0a;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: opacity 0.15s;
+}
+
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: var(--color-orbit-surface-2);
+  color: #fafafa;
+  font-weight: 500;
+  border: 1px solid var(--color-orbit-border);
+  border-radius: 10px;
+  transition: background 0.15s;
+}
+
+.btn-secondary:hover {
+  background: var(--color-orbit-surface);
+}
+
+.text-accent {
+  color: var(--color-orbit-accent);
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.25s ease-out;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
