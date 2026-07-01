@@ -169,8 +169,7 @@ export function MyAIFloatingButton({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="fixed bottom-[calc(var(--nav-height)+var(--space-4))] right-4 z-40 flex items-center gap-2 pl-1.5 pr-4 py-1.5 rounded-full shadow-lg border border-orbit-border bg-orbit-surface-2/95 backdrop-blur-md hover:bg-orbit-surface transition-all hover:scale-[1.02] max-w-[calc(100vw-2rem)]"
-      style={{ marginRight: 'max(1rem, calc(50% - 16rem))' }}
+      className="orbit-fab-my-ai flex items-center gap-2 pl-1.5 pr-4 py-1.5 rounded-full shadow-lg border border-orbit-border bg-orbit-surface-2/95 backdrop-blur-md hover:bg-orbit-surface transition-all hover:scale-[1.02] max-w-[calc(100vw-2rem)]"
       aria-label="Open My AI"
     >
       <div

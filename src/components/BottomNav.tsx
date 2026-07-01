@@ -15,15 +15,15 @@ const TABS: { id: AppTab; label: string; icon: typeof Home }[] = [
 
 export function BottomNav({ active, onChange }: BottomNavProps) {
   return (
-    <nav className="orbit-floating-nav">
-      <div className="flex items-center justify-around py-2 px-2 safe-area-bottom">
+    <nav className="orbit-floating-nav" aria-label="Main navigation">
+      <div className="flex items-center justify-between py-1.5 px-1">
         {TABS.map(({ id, label, icon: Icon }) => {
           const isActive = active === id
           return (
             <button
               key={id}
               onClick={() => onChange(id)}
-              className={`relative flex flex-col items-center gap-0.5 px-4 py-2 rounded-2xl transition-all duration-200 ${
+              className={`relative flex flex-1 min-w-0 flex-col items-center gap-0.5 px-1 py-2 rounded-2xl transition-all duration-200 ${
                 isActive
                   ? 'text-accent bg-orbit-accent/10'
                   : 'text-zinc-500 hover:text-zinc-300 hover:bg-orbit-surface/50'

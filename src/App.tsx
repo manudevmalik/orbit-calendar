@@ -152,7 +152,7 @@ function MainApp() {
         <NowNextHeader />
       </header>
 
-      <main className="flex-1 px-4 pt-4 pb-32 overflow-y-auto">
+      <main className="flex-1 px-4 pt-4 orbit-main-with-nav overflow-y-auto">
         {state.activeTab === 'home' && <HomeTab />}
         {state.activeTab === 'calendar' && <CalendarTab />}
         {state.activeTab === 'add' && <AddTab />}
