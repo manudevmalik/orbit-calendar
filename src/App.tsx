@@ -136,8 +136,8 @@ function MainApp() {
   const [showMyAI, setShowMyAI] = useState(false)
 
   return (
-    <div className="min-h-full flex flex-col max-w-lg mx-auto">
-      <header className="orbit-sticky-header safe-area-top">
+    <div className="h-full flex flex-col max-w-lg mx-auto overflow-hidden">
+      <header className="shrink-0 orbit-sticky-header safe-area-top">
         <div className="px-4 py-3 flex items-center justify-between">
           <AppBrandMark />
           {state.reviewQueue.length > 0 && state.activeTab !== 'add' && (
@@ -152,19 +152,25 @@ function MainApp() {
         <NowNextHeader />
       </header>
 
-      <main className="flex-1 px-4 pt-4 orbit-main-with-nav overflow-y-auto">
+      <main className="flex-1 min-h-0 px-4 pt-4 pb-5 overflow-y-auto">
         {state.activeTab === 'home' && <HomeTab />}
         {state.activeTab === 'calendar' && <CalendarTab />}
         {state.activeTab === 'add' && <AddTab />}
         {state.activeTab === 'profile' && <ProfileTab />}
       </main>
 
-      <BottomNav
-        active={state.activeTab}
-        onChange={(tab) => dispatch({ type: 'SET_TAB', tab })}
-      />
+      <footer className="orbit-app-footer shrink-0">
+        {!showMyAI && (
+          <div className="flex justify-center px-4 pt-2 pb-1">
+            <MyAIFloatingButton onClick={() => setShowMyAI(true)} />
+          </div>
+        )}
+        <BottomNav
+          active={state.activeTab}
+          onChange={(tab) => dispatch({ type: 'SET_TAB', tab })}
+        />
+      </footer>
 
-      {!showMyAI && <MyAIFloatingButton onClick={() => setShowMyAI(true)} />}
       {showMyAI && <MyAIChat onClose={() => setShowMyAI(false)} />}
     </div>
   )

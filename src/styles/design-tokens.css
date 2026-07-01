@@ -84,9 +84,9 @@
   --nav-bar-height: 56px;
   --nav-height: var(--nav-bar-height);
   --fab-height: 44px;
-  --bottom-nav-gap: var(--space-4);
-  --bottom-nav-total: calc(var(--nav-bar-height) + var(--bottom-nav-gap) + var(--safe-area-bottom));
-  --main-bottom-padding: calc(var(--bottom-nav-total) + var(--fab-height) + var(--space-5));
+  --fab-area-height: calc(var(--fab-height) + var(--space-3));
+  --bottom-nav-total: calc(var(--nav-bar-height) + var(--safe-area-bottom));
+  --footer-total: calc(var(--fab-area-height) + var(--bottom-nav-total));
   --app-max-width: 32rem;
   --header-blur: 16px;
 }
@@ -145,31 +145,24 @@
   border-bottom: 1px solid color-mix(in srgb, var(--color-orbit-border) 80%, transparent);
 }
 
-.orbit-floating-nav {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(calc(100vw - var(--space-8)), calc(var(--app-max-width) - var(--space-8)));
-  padding-bottom: calc(var(--bottom-nav-gap) + var(--safe-area-bottom));
-  z-index: 50;
-  background: color-mix(in srgb, var(--color-orbit-surface-2) 92%, transparent);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid color-mix(in srgb, var(--color-orbit-border) 80%, transparent);
-  border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-float);
+.orbit-app-footer {
+  flex-shrink: 0;
+  width: 100%;
+  background: color-mix(in srgb, var(--color-orbit-bg) 90%, transparent);
 }
 
-.orbit-main-with-nav {
-  padding-bottom: var(--main-bottom-padding);
+.orbit-tab-bar {
+  width: 100%;
+  min-height: var(--nav-bar-height);
+  padding-bottom: var(--safe-area-bottom);
+  background: color-mix(in srgb, var(--color-orbit-surface-2) 95%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid color-mix(in srgb, var(--color-orbit-border) 80%, transparent);
 }
 
 .orbit-fab-my-ai {
-  position: fixed;
-  bottom: calc(var(--bottom-nav-total) + var(--space-3));
-  right: max(var(--space-4), calc(50% - var(--app-max-width) / 2 + var(--space-4)));
-  z-index: 40;
+  box-shadow: var(--shadow-md);
 }
 
 .safe-area-bottom {

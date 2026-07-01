@@ -15,18 +15,16 @@ const TABS: { id: AppTab; label: string; icon: typeof Home }[] = [
 
 export function BottomNav({ active, onChange }: BottomNavProps) {
   return (
-    <nav className="orbit-floating-nav" aria-label="Main navigation">
-      <div className="flex items-center justify-between py-1.5 px-1">
+    <nav className="orbit-tab-bar" aria-label="Main navigation">
+      <div className="flex items-stretch justify-around">
         {TABS.map(({ id, label, icon: Icon }) => {
           const isActive = active === id
           return (
             <button
               key={id}
               onClick={() => onChange(id)}
-              className={`relative flex flex-1 min-w-0 flex-col items-center gap-0.5 px-1 py-2 rounded-2xl transition-all duration-200 ${
-                isActive
-                  ? 'text-accent bg-orbit-accent/10'
-                  : 'text-zinc-500 hover:text-zinc-300 hover:bg-orbit-surface/50'
+              className={`relative flex flex-1 min-w-0 flex-col items-center justify-center gap-0.5 py-2 transition-colors duration-200 ${
+                isActive ? 'text-accent' : 'text-zinc-500 hover:text-zinc-300'
               }`}
             >
               <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
@@ -34,7 +32,7 @@ export function BottomNav({ active, onChange }: BottomNavProps) {
                 {label}
               </span>
               {isActive && (
-                <span className="absolute -bottom-0.5 w-1 h-1 rounded-full bg-orbit-accent" />
+                <span className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full bg-orbit-accent" />
               )}
             </button>
           )
